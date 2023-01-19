@@ -7,9 +7,6 @@ import java.util.ArrayList;
 
 import com.iu.main.util.DBConnection;
 
-import oracle.jdbc.proxy.annotation.Pre;
-import oracle.net.aso.c;
-
 public class EmployeeDAO {
 	//월급의 평균
 	public void getAvg() throws Exception{
@@ -40,7 +37,7 @@ public class EmployeeDAO {
 		Connection connection = DBConnection.getConnection();
 		String sql = "INSERT INTO EMPLOYEES (EMPLOYEE_ID,FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,"
 				+ "HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)"
-				+ " VALUES (EMPLOYEES_NEXTVAL,?,?,?,?,SYSDATE,?,?,?,?,?)";
+				+ " VALUES (EMPLOYEES_SEQ.NEXTVAL,?,?,?,?,SYSDATE,?,?,?,?,?)";
 		PreparedStatement st = connection.prepareStatement(sql);
 		st.setString(1, employeeDTO.getFirst_name());
 		st.setString(2, employeeDTO.getLast_name());

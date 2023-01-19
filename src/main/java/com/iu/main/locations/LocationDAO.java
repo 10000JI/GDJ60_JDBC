@@ -8,8 +8,6 @@ import java.util.ArrayList;
 
 import com.iu.main.util.DBConnection;
 
-import oracle.jdbc.proxy.annotation.Pre;
-
 public class LocationDAO {
 	
 	public int updateDate(LocationDTO locationDTO) throws Exception{

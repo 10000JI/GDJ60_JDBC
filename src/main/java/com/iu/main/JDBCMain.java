@@ -20,8 +20,8 @@ public class JDBCMain {
 		EmployeeDAO employeeDAO = new EmployeeDAO();
 		try {
 			//departmentController.start();
-			locationController.start();
-			//employeeController.start();
+			//locationController.start();
+			employeeController.start();
 			//employeeDAO.getAvg();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
