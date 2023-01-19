@@ -12,7 +12,21 @@ import oracle.jdbc.proxy.annotation.Pre;
 
 public class LocationDAO {
 	
-	public int DeleteDate(LocationDTO locationDTO) throws Exception{
+	public int updateDate(LocationDTO locationDTO) throws Exception{
+		Connection connection = DBConnection.getConnection();
+		String sql = "UPDATE LOCATIONS SET STREET_ADDRESS=?, POSTAL_CODE=?,CITY=?"
+				+ " WHERE LOCATION_ID=?";
+		PreparedStatement st = connection.prepareStatement(sql);
+		st.setString(1, locationDTO.getStreet_address());
+		st.setString(2, locationDTO.getPostal_code());
+		st.setString(3, locationDTO.getCity());
+		st.setInt(4, locationDTO.getLocation_id());
+		int result = st.executeUpdate();
+		DBConnection.disConnect(st, connection);
+		return result;
+	}
+	
+	public int deleteData(LocationDTO locationDTO) throws Exception{
 		Connection connection = DBConnection.getConnection();
 		String sql = "DELETE LOCATIONS WHERE LOCATION_ID=?";
 		PreparedStatement st = connection.prepareStatement(sql);

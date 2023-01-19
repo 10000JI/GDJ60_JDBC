@@ -4,6 +4,7 @@ import com.iu.main.departments.DepartmentController;
 import com.iu.main.departments.DepartmentDAO;
 import com.iu.main.departments.DepartmentDTO;
 import com.iu.main.employees.EmployeeController;
+import com.iu.main.employees.EmployeeDAO;
 import com.iu.main.locations.LocationController;
 import com.iu.main.locations.LocationDAO;
 import com.iu.main.locations.LocationDTO;
@@ -15,10 +16,13 @@ public class JDBCMain {
 		System.out.println("start");
 		DepartmentController departmentController = new DepartmentController();
 		LocationController locationController = new LocationController();
-		//EmployeeController employeeController = new EmployeeController();
+		EmployeeController employeeController = new EmployeeController();
+		EmployeeDAO employeeDAO = new EmployeeDAO();
 		try {
 			//departmentController.start();
 			locationController.start();
+			//employeeController.start();
+			//employeeDAO.getAvg();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

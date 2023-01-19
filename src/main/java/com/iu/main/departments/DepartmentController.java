@@ -23,9 +23,10 @@ public class DepartmentController {
 		while(check) {
 			System.out.println("1.부서리스트");
 			System.out.println("2.부서상세정보");
-			System.out.println("3.부서정보추가");
-			System.out.println("4.부서정보삭제");
-			System.out.println("5.종     료");
+			System.out.println("3.부서  추가");
+			System.out.println("4.부서  삭제");
+			System.out.println("5.부서  수정");
+			System.out.println("6.종    료");
 			int select = sc.nextInt();
 			
 			switch(select) {
@@ -46,7 +47,7 @@ public class DepartmentController {
 			case 3:
 				departmentDTO = departmentInput.setDate();
 				select = departmentDAO.setData(departmentDTO);
-				if(select >= 0) {
+				if(select > 0) {
 					departmentView.view("추가 성공");
 				}else {
 					departmentView.view("추가 실패");
@@ -60,6 +61,16 @@ public class DepartmentController {
 					msg = "삭제 성공";
 				}
 				departmentView.view(msg);
+				break;
+			case 5:
+				departmentDTO = departmentInput.updateDate();
+				select = departmentDAO.updateData(departmentDTO);
+				if(select > 0) {
+					departmentView.view("수정성공");
+				}else {
+					departmentView.view("수정실패");
+				}
+				
 				break;
 			default:
 				check=false;

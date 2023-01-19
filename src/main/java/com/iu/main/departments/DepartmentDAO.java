@@ -9,6 +9,22 @@ import java.util.ArrayList;
 import com.iu.main.util.DBConnection;
 
 public class DepartmentDAO {
+	
+	//update
+	public int updateData(DepartmentDTO departmentDTO) throws Exception {
+		Connection connection = DBConnection.getConnection();
+		String sql = "UPDATE DEPARTMENTS SET DEPARTMENT_NAME=?, MANAGER_ID=?,LOCATION_ID=?"
+				+ " WHERE DEPARTMENT_ID=?";
+		PreparedStatement st = connection.prepareStatement(sql);
+		st.setString(1,departmentDTO.getDepartment_name());
+		st.setInt(2, departmentDTO.getManager_id());
+		st.setInt(3, departmentDTO.getLocation_id());
+		st.setInt(4, departmentDTO.getDepartment_id());
+		int result = st.executeUpdate();
+		DBConnection.disConnect(st, connection);
+		return result;
+	}
+	
 	//delete
 	public int deleteData(DepartmentDTO departmentDTO) throws Exception{
 		Connection connection = DBConnection.getConnection();

@@ -27,7 +27,8 @@ public class LocationController {
 			System.out.println("3.주소 검색");
 			System.out.println("4.주소 추가");
 			System.out.println("5.주소 삭제");
-			System.out.println("6.종료");
+			System.out.println("6.주소 수정");
+			System.out.println("7.종료");
 			int select = sc.nextInt();
 			switch(select) {
 			case 1:
@@ -61,11 +62,20 @@ public class LocationController {
 				break;
 			case 5:
 				locationDTO = locationInput.deleteData();
-				select = locationDAO.DeleteDate(locationDTO);
-				if(select >= 0) {
+				select = locationDAO.deleteData(locationDTO);
+				if(select > 0) {
 					locationView.view("삭제 성공");
 				}else {
 					locationView.view("삭제 실패");				
+				}
+				break;
+			case 6:
+				locationDTO = locationInput.updateData();
+				select = locationDAO.updateDate(locationDTO);
+				if(select > 0) {
+					locationView.view("수정 성공");
+				}else {
+					locationView.view("수정 실패");				
 				}
 				break;
 			default:

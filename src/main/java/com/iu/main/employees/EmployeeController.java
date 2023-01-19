@@ -14,21 +14,27 @@ public class EmployeeController {
 	private Scanner sc;
 	private EmployeeDAO employeeDAO;
 	private EmployeeView employeeView;
+	private EmployeeInput employeeInput;
 
 	public EmployeeController() {
 		this.sc = new Scanner(System.in);
 		this.employeeDAO = new EmployeeDAO();
 		this.employeeView = new EmployeeView();
+		this.employeeInput = new EmployeeInput();
 	}
 	
 	public void start() throws Exception {
 		boolean check = true;
 		ArrayList<EmployeeDTO> ar = null;
+		EmployeeDTO employeeDTO = null;
 		while(check) {
 			System.out.println("1.사원정보리스트");
 			System.out.println("2.개별사원정보");
-			System.out.println("3.사원검색");
-			System.out.println("4.종료");
+			System.out.println("3.사원   검색");
+			System.out.println("4.사원   추가");
+			System.out.println("5.사원   삭제");
+			System.out.println("6.사원   수정");
+			System.out.println("7.종    료");
 			int select = sc.nextInt();
 			switch(select) {
 			case 1:
@@ -38,7 +44,7 @@ public class EmployeeController {
 			case 2:
 				System.out.print("사원번호를 입력하세요: ");
 				select = sc.nextInt();
-				EmployeeDTO employeeDTO = employeeDAO.getDetail(select);
+				employeeDTO = employeeDAO.getDetail(select);
 				if(employeeDTO != null) {
 					employeeView.view(employeeDTO);
 				}else {
@@ -50,6 +56,33 @@ public class EmployeeController {
 				String add = sc.next();
 				ar = employeeDAO.getFind(add);
 				employeeView.view(ar);
+				break;
+			case 4:
+				employeeDTO = employeeInput.setData();
+				select = employeeDAO.setData(employeeDTO);
+				if(select > 0) {
+					employeeView.view("추가 성공");
+				}else {
+					employeeView.view("추가 실패");
+				}
+				break;
+			case 5:
+				employeeDTO = employeeInput.deleteData();
+				select = employeeDAO.deleteData(employeeDTO);
+				if(select > 0) {
+					employeeView.view("사원 삭제 성공");
+				}else {
+					employeeView.view("사원 삭제 실패");
+				}
+				break;
+			case 6:
+				employeeDTO = employeeInput.updateData();
+				select = employeeDAO.updateData(employeeDTO);
+				if(select > 0) {
+					employeeView.view("사원 수정 성공");
+				}else {
+					employeeView.view("사원 수정 실패");
+				}
 				break;
 			default:
 				check = false;
