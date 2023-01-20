@@ -4,25 +4,38 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.iu.main.util.DBConnection;
 
 public class EmployeeDAO {
 	//월급의 평균
-	public void getAvg() throws Exception{
+	public HashMap<String, Double> getAvg() throws Exception{
+		HashMap<String, Double> map = new HashMap<String, Double>();
+		
 		Connection connection = DBConnection.getConnection();
 		
-		String sql = "SELECT AVG(SALARY), SUM(SALARY) FROM EMPLOYEES";
+		String sql = "SELECT AVG(SALARY) AS A, SUM(SALARY) FROM EMPLOYEES";
 		
 		PreparedStatement st = connection.prepareStatement(sql);
 		
 		ResultSet rs = st.executeQuery();
 		
 		rs.next();
-		System.out.println(rs.getDouble(1));
+		
+		//1. List, Array,
+		//2. DTO (Class): 자주 쓰이면 사용, 1회용이면 비추천 
+		//3. Map (key 키,value 값): 1회용으로 추천 
+		
+		map.put("avg",rs.getDouble("A"));
+		map.put("sum",rs.getDouble(2));
+		
+		System.out.println(rs.getDouble("A"));
 		System.out.println(rs.getDouble(2));
 		
 		DBConnection.disConnect(rs, st, connection); 
+		
+		return map;
 	}
 	public int deleteData(EmployeeDTO employeeDTO) throws Exception{
 		Connection connection = DBConnection.getConnection();
