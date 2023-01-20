@@ -26,6 +26,8 @@ public class EmployeeInput {
 		employeeDTO.setEamil(sc.next());
 		System.out.println("추가할 사원의 핸드폰번호 입력:");
 		employeeDTO.setPhone_number(sc.next());
+		System.out.println("추가할 사원의 고용날짜 입력:");
+		employeeDTO.setHire_date(sc.next());
 		System.out.println("추가할 사원의 직무를 입력:");
 		employeeDTO.setJob_id(sc.next());
 		System.out.println("추가할 사원의 월급를 입력:");

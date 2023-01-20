@@ -50,17 +50,18 @@ public class EmployeeDAO {
 		Connection connection = DBConnection.getConnection();
 		String sql = "INSERT INTO EMPLOYEES (EMPLOYEE_ID,FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,"
 				+ "HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)"
-				+ " VALUES (EMPLOYEES_SEQ.NEXTVAL,?,?,?,?,SYSDATE,?,?,?,?,?)";
+				+ " VALUES (EMPLOYEES_SEQ.NEXTVAL,?,?,?,?,?,?,?,?,?,?)";
 		PreparedStatement st = connection.prepareStatement(sql);
 		st.setString(1, employeeDTO.getFirst_name());
 		st.setString(2, employeeDTO.getLast_name());
 		st.setString(3, employeeDTO.getEamil());
 		st.setString(4, employeeDTO.getPhone_number());
-		st.setString(5, employeeDTO.getJob_id());
-		st.setDouble(6, employeeDTO.getSalary());
-		st.setDouble(7, employeeDTO.getCommision_pct());
-		st.setInt(8, employeeDTO.getManager_id());
-		st.setInt(9, employeeDTO.getDepartment_id());
+		st.setString(5, employeeDTO.getHire_date());
+		st.setString(6, employeeDTO.getJob_id());
+		st.setDouble(7, employeeDTO.getSalary());
+		st.setDouble(8, employeeDTO.getCommision_pct());
+		st.setInt(9, employeeDTO.getManager_id());
+		st.setInt(10, employeeDTO.getDepartment_id());
 		int result = st.executeUpdate();
 		DBConnection.disConnect(st, connection);
 		return result;
@@ -110,7 +111,8 @@ public class EmployeeDAO {
 			employeeDTO.setLast_name(rs.getString("LAST_NAME"));
 			employeeDTO.setEamil(rs.getString("EMAIL"));
 			employeeDTO.setPhone_number(rs.getString("PHONE_NUMBER"));
-			employeeDTO.setHire_date(rs.getDate("HIRE_DATE"));
+			//DB의 Date타입 String도 되고, date 타입도 가능 (홑따옴표로 이미 지정되어있어서, 형식만 기억)
+			employeeDTO.setHire_date(rs.getString("HIRE_DATE"));
 			employeeDTO.setJob_id(rs.getString("JOB_ID"));  
 			employeeDTO.setSalary(rs.getDouble("SALARY"));
 			employeeDTO.setCommision_pct(rs.getDouble("COMMISSION_PCT"));
@@ -142,7 +144,7 @@ public class EmployeeDAO {
 			employeeDTO.setLast_name(rs.getString("LAST_NAME"));
 			employeeDTO.setEamil(rs.getString("EMAIL"));
 			employeeDTO.setPhone_number(rs.getString("PHONE_NUMBER"));
-			employeeDTO.setHire_date(rs.getDate("HIRE_DATE"));
+			employeeDTO.setHire_date(rs.getString("HIRE_DATE"));
 			employeeDTO.setJob_id(rs.getString("JOB_ID"));  
 			employeeDTO.setSalary(rs.getDouble("SALARY"));
 			employeeDTO.setCommision_pct(rs.getDouble("COMMISSION_PCT"));
@@ -180,7 +182,7 @@ public class EmployeeDAO {
 			employeeDTO.setLast_name(rs.getString("LAST_NAME"));
 			employeeDTO.setEamil(rs.getString("EMAIL"));
 			employeeDTO.setPhone_number(rs.getString("PHONE_NUMBER"));
-			employeeDTO.setHire_date(rs.getDate("HIRE_DATE"));
+			employeeDTO.setHire_date(rs.getString("HIRE_DATE"));
 			employeeDTO.setJob_id(rs.getString("JOB_ID"));  
 			employeeDTO.setSalary(rs.getDouble("SALARY"));
 			employeeDTO.setCommision_pct(rs.getDouble("COMMISSION_PCT"));

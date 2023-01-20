@@ -14,15 +14,9 @@ public class JDBCMain {
 
 	public static void main(String[] args) {
 		System.out.println("start");
-		DepartmentController departmentController = new DepartmentController();
-		LocationController locationController = new LocationController();
-		EmployeeController employeeController = new EmployeeController();
-		EmployeeDAO employeeDAO = new EmployeeDAO();
+		FrontController frontController = new FrontController();
 		try {
-			//departmentController.start();
-			//locationController.start();
-			employeeController.start();
-			//employeeDAO.getAvg();
+			frontController.start();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
