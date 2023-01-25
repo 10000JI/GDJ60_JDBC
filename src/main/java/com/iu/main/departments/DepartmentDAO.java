@@ -6,9 +6,66 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import com.iu.main.employees.EmployeeDTO;
 import com.iu.main.util.DBConnection;
 
 public class DepartmentDAO {
+	
+	public DepartmentDTO getInfors() throws Exception{
+		DepartmentDTO departmentDTO = new DepartmentDTO();
+		departmentDTO.setEmployeeDTOs(new ArrayList<EmployeeDTO>());
+		Connection connection = DBConnection.getConnection();
+		//30번 부서에 근무하는 사원들의 이름과 부서명
+		String sql = "SELECT E.FIRST_NAME, D.DEPARTMENT_NAME"
+				+ " FROM EMPLOYEES E"
+				+ " INNER JOIN"
+				+ " DEPARTMENTS D"
+				+ " ON (E.DEPARTMENT_ID = D.DEPARTMENT_ID)"
+				+ " WHERE D.DEPARTMENT_ID = 30";
+		PreparedStatement st = connection.prepareStatement(sql);
+		ResultSet rs = st.executeQuery();
+		//30번 부서에 근무하는 사람 여러명이므로 여러 개 리턴
+		//부서는 한개, 사원들의 정보는 arraylist
+		while(rs.next()) {
+			if(departmentDTO.getDepartment_name() == null) {
+				//반복해서 이름을 넣어주기 때문에 한번만 넣어주고 싶다면 null값일 때만 넣자
+				departmentDTO.setDepartment_name(rs.getString("DEPARTMENT_NAME"));
+			}
+			EmployeeDTO employeeDTO = new EmployeeDTO();
+			employeeDTO.setFirst_name(rs.getString("FIRST_NAME"));
+			departmentDTO.getEmployeeDTOs().add(employeeDTO);
+		}
+		DBConnection.disConnect(st, connection);
+		return departmentDTO;
+	}
+	
+	//JOIN
+	public DepartmentDTO getInfo() throws Exception{
+		DepartmentDTO departmentDTO = null;
+		Connection connection = DBConnection.getConnection();
+		String sql = "SELECT E.FIRST_NAME, D.DEPARTMENT_NAME"
+				+ " FROM EMPLOYEES E"
+				+ " INNER JOIN"
+				+ " DEPARTMENTS D"
+				+ " ON (E.DEPARTMENT_ID = D.DEPARTMENT_ID)"
+				+ " WHERE E.EMPLOYEE_ID = 100";
+		PreparedStatement st = connection.prepareStatement(sql);
+		ResultSet rs = st.executeQuery();
+		//한개의 값만 리턴
+		if(rs.next()) {
+			departmentDTO = new DepartmentDTO();
+			departmentDTO.setEmployeeDTOs(new ArrayList<EmployeeDTO>());
+			//테이블별칭.컬럼명으로 getString (X), 표의 출력 결과는 컬럼명으로 나오기 때문에
+			departmentDTO.setDepartment_name(rs.getString("DEPARTMENT_NAME"));
+			//departmentDTO.getEmployeeDTOs().get(0).setFirst_name(rs.getString("FIRST_NAME"));
+			EmployeeDTO employeeDTO = new EmployeeDTO();
+			employeeDTO.setFirst_name(rs.getString("FIRST_NAME"));
+			departmentDTO.getEmployeeDTOs().add(employeeDTO);
+		}
+		DBConnection.disConnect(rs, st, connection);
+		return departmentDTO;
+	}
+	
 	
 	//update
 	public int updateData(DepartmentDTO departmentDTO) throws Exception {

@@ -1,5 +1,9 @@
 package com.iu.main.departments;
 
+import java.util.ArrayList;
+
+import com.iu.main.employees.EmployeeDTO;
+
 public class DepartmentDTO {
 	
 	//1.모든 멤버변수의 접근지정자는 private
@@ -14,6 +18,9 @@ public class DepartmentDTO {
 	private String department_name;
 	private Integer manager_id;
 	private Integer location_id;
+	//부서는 사원의 정보를 가지고 있다 (포함관계 is a)
+	//부서 하나에 사원 0명 이상 -> 1:N = ArrayList
+	private ArrayList<EmployeeDTO> employeeDTOs;
 	
 	public Integer getDepartment_id() {
 		return department_id;
@@ -36,9 +43,14 @@ public class DepartmentDTO {
 	public Integer getLocation_id() {
 		return location_id;
 	}
-	public void setLocation_id(Integer lovation_id) {
-		this.location_id = lovation_id;
+	public void setLocation_id(Integer location_id) {
+		this.location_id = location_id;
 	}
-	
-	
+	public ArrayList<EmployeeDTO> getEmployeeDTOs() {
+		return employeeDTOs;
+	}
+	public void setEmployeeDTOs(ArrayList<EmployeeDTO> employeeDTOs) {
+		this.employeeDTOs = employeeDTOs;
+	}
+
 }

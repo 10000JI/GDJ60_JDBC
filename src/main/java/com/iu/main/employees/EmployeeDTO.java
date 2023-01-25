@@ -2,6 +2,8 @@ package com.iu.main.employees;
 
 import java.sql.Date;
 
+import com.iu.main.departments.DepartmentDTO;
+
 public class EmployeeDTO {
 	//int와 같은 primitive보단 Integer인 reference로
 	//자바는 보통 카멜케이스 표기법 으로 쓰지만
@@ -21,6 +23,12 @@ public class EmployeeDTO {
 	private double commision_pct;
 	private Integer manager_id;
 	private Integer department_id;
+	
+	//사원 하나에 부서 한개 -> 1:1 = 클래스
+	//DepartmentDTO에 ArrayList로 EmployeeDTO가 존재하므로 양방향관계
+	//EmployeeDTO에 DepartmentDTO 클래스가 존재하지 않으면 단방향관계
+	private DepartmentDTO departmentDTO;
+	
 	public Integer getEmployee_id() {
 		return employee_id;
 	}
